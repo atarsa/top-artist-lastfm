@@ -18,7 +18,8 @@ fetch('http://ws.audioscrobbler.com/2.0/?method=geo.gettopartists&country=united
     
       // create list element for each artist with photo and url
       const li = document.createElement('li');
-      const div = document.createElement('div');
+      li.setAttribute("class", "collection-item avatar")
+      // const div = document.createElement('div');
 
       const img = document.createElement('img');
       img.setAttribute('src', artist['image'][1]['#text']);
@@ -26,11 +27,16 @@ fetch('http://ws.audioscrobbler.com/2.0/?method=geo.gettopartists&country=united
       const a = document.createElement('a');
       a.innerText = artist['name'];
       a.setAttribute('href', "artist['url']");
-      
-      div.appendChild(img);
-      div.appendChild(a);
+      a.setAttribute('class', "title");
+      // const h4 = document.createElement('h4');
+      // h4.style.display = "inline-block";
+      // div.appendChild(img);
+      // div.appendChild(a);
 
-      li.appendChild(div);
+      li.appendChild(img);
+      li.appendChild(a);
+      // li.appendChild(h4);
+      // li.appendChild(div);
       topArtistsList.appendChild(li);
 
             
