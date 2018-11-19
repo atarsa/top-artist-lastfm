@@ -12,29 +12,21 @@ fetch('http://ws.audioscrobbler.com/2.0/?method=geo.gettopartists&country=united
     // work with json data here
     let index = 1;
     myJson['topartists']['artist'].forEach(artist => {
-      // console.log(`Artist: ${artist['name']}`);
-      // console.log(`url: ${artist['url']}`);
-      // // get medium size photo
-      console.log(`img: ${artist['image'][1]['#text']}`);
-    
-      // create card element for each artist with photo and url
+            
+      // create card element for each artist with photo, position and name
       const artistCard = document.createElement('div');
       artistCard.setAttribute("class", "artist-card");
       
       const img = document.createElement('img');
-      // small img
+      // if small display select small image otherwise a bigger one
       if (window.matchMedia("(max-width:649px)").matches){
         img.setAttribute('src', artist['image'][1]['#text']);
       } else {
         img.setAttribute('src', artist['image'][2]['#text']);
       }
-      
-      
+           
       
       artistCard.appendChild(img);
-
-      // const div = document.createElement('div');
-      // div.setAttribute("class", "artist-info");
 
       const artistPosition = document.createElement('div');
       artistPosition.setAttribute("class", "artist-position")
@@ -54,14 +46,15 @@ fetch('http://ws.audioscrobbler.com/2.0/?method=geo.gettopartists&country=united
       artistCard.appendChild(artistPosition);
       artistCard.appendChild(artistNameDiv);
      
-
-      
-      // artistCard.appendChild(div);
       topArtistsList.appendChild(artistCard);
-
-            
+    
     })
+    .catch(err => {
+      const errMessage = document.createElement('h4');
+      h4.innerText = "Oops, something is not working!";
 
-    
-    
+      topArtistsList.appendChild(h4);
+      console.log(err);
+    })
   });
+
