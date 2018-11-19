@@ -1,10 +1,7 @@
-const APIKey = 'ebc06b0ac7f205e608e65d074aad9ba5';
-const sharedSecret = 'c0a0f25cc8924e620c15a5f7a6ea1ae0';
-
 // define UI vars
 const topArtistsList = document.getElementById('top-artists-list');
 
-fetch('http://ws.audioscrobbler.com/2.0/?method=geo.gettopartists&country=united+kingdom&limit=10&api_key='+ APIKey +'&format=json')
+fetch('http://ws.audioscrobbler.com/2.0/?method=geo.gettopartists&country=united+kingdom&limit=10&api_key='+ config['APIKey'] +'&format=json')
   .then(function(response) {
     return response.json();
   })
@@ -49,12 +46,15 @@ fetch('http://ws.audioscrobbler.com/2.0/?method=geo.gettopartists&country=united
       topArtistsList.appendChild(artistCard);
     
     })
-    .catch(err => {
-      const errMessage = document.createElement('h4');
-      h4.innerText = "Oops, something is not working!";
+    
+  })
+  .catch(function(error){
+    const errMessage = document.createElement('h4');
+    h4.innerText = "Oops, something is not working!";
 
-      topArtistsList.appendChild(h4);
-      console.log(err);
-    })
+    topArtistsList.appendChild(h4);
+    console.log('There has been a problem with your fetch operation: ', error.message);
+    
   });
+
 
