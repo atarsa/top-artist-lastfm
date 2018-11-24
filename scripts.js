@@ -23,45 +23,47 @@ fetch("https://pkgstore.datahub.io/core/country-list/data_json/data/8c458f2d15d9
       countriesNames.push(countryName);
     };
 
-    //showCountriesList(myJSON);
+    showCountriesList(countriesNames);
+        
+    });
+    
+const showCountriesList = function(countriesNames){
     // show list of countries names
     inputCountryList.addEventListener('keyup', function(){
       // start a new list every time
       showCountries.innerHTML = "";
       for (let country of countriesNames){
         
-        if (country.includes(this.value)){
+        if (country.indexOf(this.value) != -1){
           //console.log(country);
           
           let listElement = document.createElement('li');
           listElement.innerText = country;
           showCountries.appendChild(listElement);
+        };  
           
-          // set text input value to clicked country
-          showCountries.addEventListener('click', function(e){
-            console.log(e.target.innerText);
-            inputCountryList.value = e.target.innerText;
-                        
-            let queryUrl = `http://ws.audioscrobbler.com/2.0/?method=geo.gettopartists&country=${inputCountryList.value}&limit=10&api_key=${APIKey}&format=json`;
-
-            //show_top_artists(queryUrl);
-          });
-        }
         
       }
+
       
     });
-    
-  })
+  }   
+// set text input value to clicked country
+        
+showCountries.addEventListener('click', function(e){
+  console.log(e.target);
+  inputCountryList.value = e.target.innerText;
+  showCountries.innerHTML = "";            
+  let queryUrl = `http://ws.audioscrobbler.com/2.0/?method=geo.gettopartists&country=${inputCountryList.value}&limit=10&api_key=${APIKey}&format=json`;
 
-
-
-
-
+  show_top_artists(queryUrl);
+});
  
-  const show_top_artists = function(queryUrl){
-
-    fetch(queryUrl)
+let show_top_artists = function(queryUrl){
+  
+  // create new list of artists
+  topArtistsList.innerHTML = "";
+  fetch(queryUrl)
   .then(function(response) {
     return response.json();
   })
@@ -106,7 +108,7 @@ fetch("https://pkgstore.datahub.io/core/country-list/data_json/data/8c458f2d15d9
       topArtistsList.appendChild(artistCard);
     
     })
-    // catch not working, why??
+    // // catch not working, why??
     // .catch(err => {
     //   const errMessage = document.createElement('h4');
     //   h4.innerText = "Oops, something is not working!";
@@ -115,5 +117,5 @@ fetch("https://pkgstore.datahub.io/core/country-list/data_json/data/8c458f2d15d9
     //   console.log(err);
     // })
   });
-  } 
+} 
 
