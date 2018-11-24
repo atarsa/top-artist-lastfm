@@ -99,7 +99,7 @@ const show_top_artists = function(queryUrl){
       artistNameDiv.setAttribute('class', "artist-name");
       const artistName = document.createElement('a');
       artistName.innerText = artist['name'];
-      artistName.setAttribute('href', "artist['url']");
+      artistName.setAttribute('href', artist['url']);
       artistNameDiv.appendChild(artistName);
       
 
