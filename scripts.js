@@ -69,7 +69,10 @@ let show_top_artists = function(queryUrl){
   })
   .then(function(myJson) {
     // work with json data here
-    let index = 1;
+    // if artist data available
+    if(myJson['topartists']['artist'].length != 0){
+
+      let index = 1;
     myJson['topartists']['artist'].forEach(artist => {
             
       // create card element for each artist with photo, position and name
@@ -107,15 +110,23 @@ let show_top_artists = function(queryUrl){
      
       topArtistsList.appendChild(artistCard);
     
-    })
-    // // catch not working, why??
-    // .catch(err => {
-    //   const errMessage = document.createElement('h4');
-    //   h4.innerText = "Oops, something is not working!";
+     });
 
-    //   topArtistsList.appendChild(h4);
-    //   console.log(err);
-    // })
-  });
+    } else {
+      // if data for country not available
+      const errMessage = document.createElement('h4');
+      errMessage.innerText = "There is no data available for this country, sorry!";
+
+      topArtistsList.appendChild(errMessage);
+      console.log("nada :<")
+    }
+  })
+  .catch(function(err){
+    const errMessage = document.createElement('h4');
+      errMessage.innerText = "Oops, something went wrong!";
+
+      topArtistsList.appendChild(errMessage);
+      console.log(err)
+  })
 } 
 
