@@ -1,5 +1,6 @@
 body {
   margin: 0 auto;
+  box-sizing: border-box;
 }
 
 .container {
@@ -42,6 +43,41 @@ small {
 
 a {
   text-decoration: none;
+}
+
+/*******************
+ custom styles
+ ******************/
+.country-input {
+  font-size: 1.2em;
+  width: 60vw;
+}
+
+input[type='text'] {
+  display: block;
+  margin: 1em 0;
+  padding: 0.3em 0.5em;
+  font-size: 1em;
+  width: 100%;
+  box-shadow: 1px 1px 1px 0px rgba(0, 0, 0, 0.5);
+}
+
+.show-countries-list {
+  margin-top: -1em;
+  list-style: none;
+  background-color: rgb(232, 238, 240);
+  border: 0.5px solid lightblue;
+}
+
+.country-li {
+  padding: 0.5em;
+  margin-left: -2.1em;
+
+}
+
+.country-li:hover {
+  background-color: rgb(215, 222, 224);
+  border: 1px solid lightblue;
 }
 
 .artist-card {
@@ -97,23 +133,23 @@ img {
   text-decoration-line: underline;
 }
 
-/**************
- media quries 
- **************/
+
+/* media quries */
 @media (min-width: 455px) {
   .artist-card {
     grid-template-columns: 4em 1fr 3fr;
-
   }
 
-  img {
-    height: 100%;
-  }
+
 }
 
 @media (min-width: 650px) {
   h1 {
     font-size: 3em;
+  }
+
+  .country-input {
+    width: 25em;
   }
 
   .artist-card {
@@ -123,12 +159,6 @@ img {
       "img name";
     margin: 2em;
   }
-
-  img {
-    width: 100%;
-    height: 174px;
-  }
-
 
   .artist-name {
     font-size: 1.8em;
