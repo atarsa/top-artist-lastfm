@@ -1,14 +1,15 @@
-const APIKey = 'ebc06b0ac7f205e608e65d074aad9ba5';
-const sharedSecret = 'c0a0f25cc8924e620c15a5f7a6ea1ae0';
+//const APIKey = 'ebc06b0ac7f205e608e65d074aad9ba5';
+//const sharedSecret = 'c0a0f25cc8924e620c15a5f7a6ea1ae0';
 
 // define UI vars
 const topArtistsList = document.getElementById('top-artists-list');
-
 const inputCountryList = document.getElementById('country-input');
-
 const countriesList = document.getElementById('country-list');
+
 const showCountries = document.createElement('ul');
+showCountries.setAttribute("class", "show-countries-list");
 countriesList.appendChild(showCountries);
+
 // get countries list
 const countriesNames = []
 fetch("https://pkgstore.datahub.io/core/country-list/data_json/data/8c458f2d15d9f2119654b29ede6e45b8/data_json.json", {cache: "force-cache"})
@@ -19,7 +20,6 @@ fetch("https://pkgstore.datahub.io/core/country-list/data_json/data/8c458f2d15d9
     
     for (let country of myJSON){
       let countryName = country.Name;
-      countryName = countryName.toLowerCase()
       countriesNames.push(countryName);
     };
 
@@ -34,32 +34,30 @@ const showCountriesList = function(countriesNames){
       showCountries.innerHTML = "";
       for (let country of countriesNames){
         
-        if (country.indexOf(this.value) != -1){
-          //console.log(country);
-          
+        if (country.toLowerCase().indexOf(this.value) != -1){
+                   
           let listElement = document.createElement('li');
+          listElement.setAttribute("class", "country-li");
           listElement.innerText = country;
           showCountries.appendChild(listElement);
         };  
-          
-        
+                  
       }
-
       
     });
-  }   
-// set text input value to clicked country
-        
+  }
+
+// set text input value to clicked country    
 showCountries.addEventListener('click', function(e){
   console.log(e.target);
   inputCountryList.value = e.target.innerText;
   showCountries.innerHTML = "";            
-  let queryUrl = `http://ws.audioscrobbler.com/2.0/?method=geo.gettopartists&country=${inputCountryList.value}&limit=10&api_key=${APIKey}&format=json`;
+  let queryUrl = `http://ws.audioscrobbler.com/2.0/?method=geo.gettopartists&country=${inputCountryList.value}&limit=10&api_key=${config.APIKey}&format=json`;
 
   show_top_artists(queryUrl);
 });
  
-let show_top_artists = function(queryUrl){
+const show_top_artists = function(queryUrl){
   
   // create new list of artists
   topArtistsList.innerHTML = "";
